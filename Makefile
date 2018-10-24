@@ -1,14 +1,14 @@
 CC = g++
 FLAG = -std=c++11 -c -Wall -O3
 
-all: read fin
+all: read pos fin
 	$(CC) *.o -o _driven
 read:
 	$(CC) $(FLAG) import.cpp
 ini:
 	$(CC) $(FLAG) initialize.cpp 
-exp:
-	$(CC) $(FLAG) export.cpp
+pos:
+	$(CC) $(FLAG) positions.cpp
 metho:
 	$(CC) $(FLAG) method.cpp
 bnd:
