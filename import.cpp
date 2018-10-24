@@ -19,7 +19,3 @@ std::vector<double> readfiledat()
     return v;
 }
 
-int main()
-{
-    return 0;
-}

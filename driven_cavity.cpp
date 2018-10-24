@@ -6,5 +6,7 @@
 
 int main()
 {
+    std::vector<double> v;
+    v = readfiledat();
     return 0;
 }
