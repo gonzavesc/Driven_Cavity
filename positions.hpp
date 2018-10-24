@@ -13,7 +13,8 @@ class positions{
         positions(const double& a, const double& b);
         std::vector<double> get_Xp();
         std::vector<double> get_Yp();
-        std::vector<double> get_Yu();
+        std::vector<double> get_Yv();
+        std::vector<double> get_Xu();
 
 };
 
