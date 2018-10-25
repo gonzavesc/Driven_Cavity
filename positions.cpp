@@ -13,8 +13,8 @@ positions::positions(const double& a, const double& b)
 
     n = 1 / dx;
     m = 1/ dy;
-    Xu.push_back(0); Xp.push_back(0);
-    Yv.push_back(0); Yp.push_back(0);
+    Xu.push_back(0);
+    Yv.push_back(0);
     for (j = 0; j < n; j++)
     {
         Xp.push_back(j * dx);
@@ -27,7 +27,50 @@ positions::positions(const double& a, const double& b)
         Yp.push_back(j * dy);
         Yv.push_back((j + 0.5) * dy);
     }
-    Xp.push_back(m * dy); Xu.push_back(m * dy);
+    Yp.push_back(m * dy); Yv.push_back(m * dy);
+
+
+    for (j = 0; j < n; j++)
+    {
+
+        Dxpr.push_back((Xp[j+1] - Xp[j])/2);
+    }
+    Dxpr.push_back(0);
+    Dxpl.push_back(0);
+    for (j = 1; j <= n; j++)
+    {
+        Dxpl.push_back((Xp[j] - Xp[j-1]) / 2);
+    }
+    for (j = 0; j < Dxpl.size(); j++)
+    {
+        std::cout << j << " " << Dxpl[j] << std::endl;
+    }
+    for (j = 0; j < m; j++)
+    {
+        Dypu.push_back((Yp[j+1] - Yp[j])/2);
+    }
+    Dypu.push_back(0);
+    Dypd.push_back(0);
+    for (j = 1; j <= m; j++)
+    {
+        Dypd.push_back(Dypd[j]);
+    }
+    Dxur.push_back(0);
+    for (j = 1; j < n; j++ )
+    {
+        Dxur.push_back((Xu[j+1] - Xu[j]) / 2);
+    }
+    Dxur.push_back(Xu[n+1] - Xu[n]); Dxur.push_back(0);
+    Dxul.push_back(0); Dxul.push_back(Xu[1]);
+    for (j = 2; j <= n; j++)
+    {
+        Dxul.push_back((Xu[j] - Xu[j - 1]) / 2);
+    }
+    Dxul.push_back(0);
+    /*for (j = 0; j < Dypu.size(); j++)
+    {
+        std::cout <<  j<<" " << Dypu[j] << " " << Dypd[j] << std::endl;
+    }*/
 }
 std::vector <double> positions::get_Xu()
 {
