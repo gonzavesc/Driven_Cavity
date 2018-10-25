@@ -80,10 +80,6 @@ positions::positions(const double& a, const double& b)
         Dyvd.push_back((Yv[j] - Yv[j-1]) / 2);
     }
     Dyvd.push_back(0);
-    for (j = 0; j < Dyvd.size(); j++)
-    {
-        std::cout << j << " " << Dyvd[j] << std::endl;
-    }
 }
 std::vector <double> positions::get_Xu()
 {
