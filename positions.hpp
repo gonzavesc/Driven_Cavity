@@ -8,7 +8,7 @@
 class positions{
     private:
         double dx,dy;
-        std::vector<double> Xp, Yp, Xu, Yv, Dxpr, Dxpl, Dypu, Dypd, Dxur, Dxul;
+        std::vector<double> Xp, Yp, Xu, Yv, Dxpr, Dxpl, Dypu, Dypd, Dxur, Dxul, Dyvu, Dyvd;
     public:
         positions(const double& a, const double& b);
         std::vector<double> get_Xp();
