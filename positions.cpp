@@ -5,8 +5,7 @@
 #include "positions.hpp"
 
 positions::positions(const double& a, const double& b)
-{
-    int n,m;
+{   
     double j;
     dx = a;
     dy = b;
@@ -102,4 +101,12 @@ std::vector <double> positions::get_Yp()
 std::vector <double> positions::get_Xp()
 {
     return Xp;
+}
+int positions::get_m()
+{
+    return m;
+}
+int positions::get_n()
+{
+    return n;
 }
