@@ -1,7 +1,7 @@
 CC = g++
 FLAG = -std=c++11 -c -Wall -O3
 
-all: read pos fin
+all: read pos vel fin
 	$(CC) *.o -o _driven
 read:
 	$(CC) $(FLAG) import.cpp
@@ -9,8 +9,8 @@ ini:
 	$(CC) $(FLAG) initialize.cpp 
 pos:
 	$(CC) $(FLAG) positions.cpp
-metho:
-	$(CC) $(FLAG) method.cpp
+vel:
+	$(CC) $(FLAG) velocity.cpp
 bnd:
 	$(CC) $(FLAG) boundary.cpp
 gss:
