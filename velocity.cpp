@@ -8,5 +8,31 @@
 Velocity::Velocity (const int& row, const int& col)
 {
     V.resize(row, std::vector<double>(col));
-    std::cout << V.size() << " " << V[0].size() <<std::endl;
+    for (int i = 0; i < row; i++ )
+    {
+        for (int j = 0; j < col; j++)
+        {
+            V[i][j] = 0;
+        }
+    }
+}
+std::vector<std::vector<double>> Velocity::get_V()
+{
+    return V;
+}
+
+Pressure::Pressure(const int& row, const int& col)
+{
+    P.resize(row, std::vector<double>(col));
+    for (int i = 0; i < row; i++ )
+    {
+        for (int j = 0; j < col; j++)
+        {
+            P[i][j] = 0;
+        }
+    }
+}
+std::vector<std::vector<double>> Pressure::get_P()
+{
+    return P;
 }

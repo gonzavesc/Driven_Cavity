@@ -13,5 +13,11 @@ class Velocity{
         Velocity(const int& row, const int& col);
         std::vector<std::vector<double>> get_V();
 };
-
+class Pressure{
+    private:
+        std::vector<std::vector<double>> P;
+    public:
+        Pressure(const int& row, const int& col);
+        std::vector<std::vector<double>> get_P();
+};
 #endif
