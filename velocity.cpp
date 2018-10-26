@@ -20,7 +20,10 @@ std::vector<std::vector<double>> Velocity::get_V()
 {
     return V;
 }
-
+void Velocity::set_V(const int& i, const int& j, const double& u)
+{
+    V[i][j] = u;
+}
 Pressure::Pressure(const int& row, const int& col)
 {
     P.resize(row, std::vector<double>(col));

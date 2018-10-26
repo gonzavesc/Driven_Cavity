@@ -4,10 +4,9 @@
 #include "positions.hpp"
 #include "import.hpp"
 #include "velocity.hpp"
+#include "boundary.hpp"
 
-#ifndef INCLUDE_BND
-#define INCLUDE_BND
-
-void set_boundary(std::vector<Velocity>& V, Pressure& P);
-
+#ifndef INCLUDE_EXP
+#define INCLUDE_EXP
+void exportarMatriu(const std::vector<std::vector<double>>& phi);
 #endif

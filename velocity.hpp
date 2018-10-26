@@ -12,6 +12,7 @@ class Velocity{
     public:
         Velocity(const int& row, const int& col);
         std::vector<std::vector<double>> get_V();
+        void set_V(const int& i, const int& j, const double& u);
 };
 class Pressure{
     private:

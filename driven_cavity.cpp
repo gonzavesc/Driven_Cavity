@@ -5,6 +5,7 @@
 #include "import.hpp"
 #include "velocity.hpp"
 #include "boundary.hpp"
+#include "export.hpp"
 int main()
 {
     std::vector<double> v;    
@@ -16,6 +17,8 @@ int main()
     Pressure P(mesh.get_m() + 1, mesh.get_n() + 1);
     std::vector<Velocity> V;
     V.push_back(Xvel); V.push_back(Yvel);
+    set_boundary(V, P);
+    exportarMatriu(V[0].get_V());
     return 0;
 
 }
