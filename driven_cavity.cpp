@@ -14,11 +14,13 @@ int main()
     v = readfiledat();
     positions mesh(v[0], v[1]);
     Velocity Xvel(mesh.get_m() + 1, mesh.get_n() + 2);
+    Xvel.set_Vp(mesh, Xvel);
     Velocity Yvel(mesh.get_m() + 2, mesh.get_n() + 1);
     Pressure P(mesh.get_m() + 1, mesh.get_n() + 1);
     std::vector<Velocity> V;
     V.push_back(Xvel); V.push_back(Yvel);
     set_boundary(V, P);
+    char name[] = "vel.out"; 
 
     return 0;
 

@@ -9,9 +9,11 @@
 class Velocity{
     private:
         std::vector<std::vector<double>> V;
+        std::vector<std::vector<double>> Vp;
     public:
         Velocity(const int& row, const int& col);
         std::vector<std::vector<double>> get_V();
+        void set_Vp(positions& mesh,     Velocity& Vv);
         void set_V(const int& i, const int& j, const double& u);
 };
 class Pressure{
