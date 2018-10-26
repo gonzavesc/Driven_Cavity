@@ -29,3 +29,19 @@ void set_boundary(std::vector<Velocity>& V, Pressure& P)
         P.set_P(i,colp-1,P.get_P(i,colp - 2));
     }
 }
+
+double get_max(const std::vector<std::vector<double>>& M)
+{
+    double m;
+    int Ny,Nx;
+    Ny = M.size(); Nx = M[0].size();
+    m = M[0][0]; 
+    for (int i = 0; i < Ny; i++)
+    {
+        for (int j = 0; j < Nx; j++)
+        {
+            m = std::max(M[i][j], m);
+        }
+    }
+    return m;   
+}

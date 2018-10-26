@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 #include "positions.hpp"
 #include "import.hpp"
 #include "velocity.hpp"
@@ -18,6 +19,7 @@ int main()
     std::vector<Velocity> V;
     V.push_back(Xvel); V.push_back(Yvel);
     set_boundary(V, P);
+
     return 0;
 
 }
