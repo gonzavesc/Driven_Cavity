@@ -20,5 +20,7 @@ class Pressure{
     public:
         Pressure(const int& row, const int& col);
         std::vector<std::vector<double>> get_P();
+        double get_P(const int& i, const int& j);
+        void set_P(const int&i, const int& j, const double p);
 };
 #endif

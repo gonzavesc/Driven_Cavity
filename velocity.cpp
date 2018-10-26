@@ -35,6 +35,14 @@ Pressure::Pressure(const int& row, const int& col)
         }
     }
 }
+double Pressure::get_P(const int& i, const int& j)
+{
+    return P[i][j];
+}
+void Pressure::set_P(const int& i,const int& j, const double p)
+{
+    P[i][j] = p;
+}
 std::vector<std::vector<double>> Pressure::get_P()
 {
     return P;

@@ -18,7 +18,10 @@ int main()
     std::vector<Velocity> V;
     V.push_back(Xvel); V.push_back(Yvel);
     set_boundary(V, P);
-    exportarMatriu(V[0].get_V());
+    exportarMatriu(P.get_P());
+    P.set_P(3,1,10);
+    set_boundary(V, P);
+    exportarMatriu(P.get_P());
     return 0;
 
 }
