@@ -18,4 +18,4 @@ exp:
 fin:
 	$(CC) $(FLAG) driven_cavity.cpp
 clean:
-	rm *.o _* M*.dat
+	rm *.o _* *.out

@@ -8,5 +8,5 @@
 
 #ifndef INCLUDE_EXP
 #define INCLUDE_EXP
-void exportarMatriu(const std::vector<std::vector<double>>& phi);
+void exportarMatriu(const std::vector<std::vector<double>>& phi,const char* name);
 #endif

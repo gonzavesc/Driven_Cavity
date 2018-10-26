@@ -7,12 +7,13 @@
 #include "boundary.hpp"
 #include "export.hpp"
 
-void exportarMatriu(const std::vector<std::vector<double>>& phi)
+void exportarMatriu(const std::vector<std::vector<double>>& phi, const char* name)
 {
     int i, jj, Nx, Ny;
     std::ofstream output;
+    //char name[] = "Mheyhey.dat";
     output.precision(17);
-    output.open("Matrix.dat");
+    output.open(name, std::ios::out);
     Ny = phi.size() - 1;
     Nx = phi[0].size() - 1;
     for (i = 0; i <= Ny; i++)
