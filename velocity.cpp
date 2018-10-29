@@ -34,7 +34,7 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
     Vp.resize(Ny, std::vector<double>(Nx));
     if (Nxv > Nx)
     {
-        for(i = 1; i < Ny - 1; i++)
+        for(i = 0; i < Ny; i++)
         {
             for (j = 1; j < Nx - 1; j++)
             {
@@ -49,13 +49,16 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
                     Vp[i][j] = ve;
                 }
             }
+            j = 0; Vp[i][j] = Vv.get_V()[i][j];
+            j = Nx -1; Vp[i][j] = Vv.get_V()[i][j];
         }   
+
     }
     else
     {
-        for(i = 1; i < Ny - 1; i++)
+        for(j = 0; j < Nx; j++)
         {
-            for (j = 1; j < Nx - 1; j++)
+            for (i = 1; i < Ny - 1; i++)
             {
                 ve = Vv.get_V()[i+1][j];
                 vw = Vv.get_V()[i][j];
@@ -68,8 +71,14 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
                     Vp[i][j] = ve;
                 }
             }
+            i = 0; Vp[i][j] = Vv.get_V()[i][j];
+            i = Ny - 1; Vp[i][j] = Vv.get_V()[i][j]; 
         }   
     }
+}
+std::vector<std::vector<double>> Velocity::get_Vp()
+{
+    return Vp;
 }
 Pressure::Pressure(const int& row, const int& col)
 {
