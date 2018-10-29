@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cmath>
 #include "positions.hpp"
 #include "import.hpp"
 #include "velocity.hpp"
@@ -76,9 +77,73 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
         }   
     }
 }
+
+void Velocity::set_Vpc(positions& mesh, std::vector<Velocity>& Vv)
+{
+    int Nx, Ny, Nxv, i, j;
+    double vw, ve;
+    Nx = mesh.get_Xp().size();
+    Ny = mesh.get_Yp().size();
+    Nxv = Vv[0].get_V()[0].size();
+    Vpc.resize(Ny - 1, std::vector<double>(Nx - 1));
+    if (Nxv > Nx)
+    {
+        
+        for (j = 0; j < Nx - 1; j++)
+        {
+            for (i = 0; i < Ny - 1; i++)
+            {
+                ve = (V[1].get_V()[i + 1][j] + V[1].get_V()[i + 1][j + 1]);
+                if (ve >= 0)
+                {
+                    Vpc[i][j] = V[0].get_V()[i][j + 1];
+                }
+                else
+                {
+                    Vpc[i][j] = V[0].get_V()[i + 1][j + 1];
+                }
+            }
+        }
+    }
+    else
+    {
+        for (j = 0; j < Nx - 1; j++)
+        {
+            for (i = 0; i < Ny - 1; i++)
+            {
+                ve = (V[0].get_V()[i][j + 1] + V[0].get_V()[i + 1][j + 1]);
+                if ( ve >= 0)
+                {
+                    Vpc[i][j] = V[1].get_V()[i + 1][j];
+                }
+                else
+                {
+                    Vpc[i][j] = V[1].get_V()[i + 1][j + 1];
+                }
+            }
+        }
+
+    }
+}
 std::vector<std::vector<double>> Velocity::get_Vp()
 {
     return Vp;
+}
+
+std::vector<std::vector<double>> vel_module(std::vector<Velocity>& Vv)
+{
+    int Nx,Ny, i, j;
+    std::vector<std::vector<double>> Vmag;
+    Ny = Vv[0].get_Vp().size(); Nx = Vv[0].get_Vp()[0].size();
+    Vmag.resize(Ny, std::vector<double> (Nx));
+    for (i = 0; i < Ny; i++)
+    {
+        for (j = 0; j < Nx; j++)
+        {
+            Vmag[i][j] = sqrt( Vv[0].get_Vp()[i][j] * Vv[0].get_Vp()[i][j] + Vv[1].get_Vp()[i][j] * Vv[1].get_Vp()[i][j] );
+        }
+    }
+    return Vmag;
 }
 Pressure::Pressure(const int& row, const int& col)
 {
