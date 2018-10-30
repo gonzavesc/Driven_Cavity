@@ -45,3 +45,45 @@ double get_max(const std::vector<std::vector<double>>& M)
     }
     return m;   
 }
+
+double get_max(const std::vector<double>& M)
+{
+    double m;
+    int Ny;
+    Ny = M.size();
+    m = M[0];
+    for (int i = 0; i < Ny; i++)
+    {    
+        m = std::max(M[i], m);
+    }
+    return m;   
+}
+
+double get_min(const std::vector<std::vector<double>>& M)
+{
+    double m;
+    int Ny,Nx;
+    Ny = M.size(); Nx = M[0].size();
+    m = M[0][0]; 
+    for (int i = 0; i < Ny; i++)
+    {
+        for (int j = 0; j < Nx; j++)
+        {
+            m = std::min(M[i][j], m);
+        }
+    }
+    return m;   
+}
+
+double get_min(const std::vector<double>& M)
+{
+    double m;
+    int Ny;
+    Ny = M.size();
+    m = M[0];
+    for (int i = 1; i < Ny - 1; i++)
+    {    
+        m = std::min(M[i], m);
+    }
+    return m;   
+}

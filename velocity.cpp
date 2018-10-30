@@ -21,6 +21,10 @@ std::vector<std::vector<double>> Velocity::get_V()
 {
     return V;
 }
+double Velocity::get_V(const int& i, const int& j)
+{
+    return V[i][j];
+}
 void Velocity::set_V(const int& i, const int& j, const double& u)
 {
     V[i][j] = u;
@@ -39,8 +43,8 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
         {
             for (j = 1; j < Nx - 1; j++)
             {
-                ve = Vv.get_V()[i][j+1];
-                vw = Vv.get_V()[i][j];
+                ve = Vv.get_V(i,j+1);
+                vw = Vv.get_V(i,j);
                 if(vw + ve >= 0)
                 {
                     Vp[i][j] = vw;
@@ -50,8 +54,8 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
                     Vp[i][j] = ve;
                 }
             }
-            j = 0; Vp[i][j] = Vv.get_V()[i][j];
-            j = Nx -1; Vp[i][j] = Vv.get_V()[i][j];
+            j = 0; Vp[i][j] = Vv.get_V(i,j);
+            j = Nx -1; Vp[i][j] = Vv.get_V(i,j);
         }   
 
     }
@@ -61,8 +65,8 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
         {
             for (i = 1; i < Ny - 1; i++)
             {
-                ve = Vv.get_V()[i+1][j];
-                vw = Vv.get_V()[i][j];
+                ve = Vv.get_V(i + 1,j);
+                vw = Vv.get_V(i,j);
                 if(vw + ve >= 0)
                 {
                     Vp[i][j] = vw;
@@ -72,8 +76,8 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
                     Vp[i][j] = ve;
                 }
             }
-            i = 0; Vp[i][j] = Vv.get_V()[i][j];
-            i = Ny - 1; Vp[i][j] = Vv.get_V()[i][j]; 
+            i = 0; Vp[i][j] = Vv.get_V(i,j);
+            i = Ny - 1; Vp[i][j] = Vv.get_V(i,j); 
         }   
     }
 }
@@ -81,7 +85,7 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
 void Velocity::set_Vpc(positions& mesh, std::vector<Velocity>& Vv)
 {
     int Nx, Ny, Nxv, i, j;
-    double vw, ve;
+    double ve;
     Nx = mesh.get_Xp().size();
     Ny = mesh.get_Yp().size();
     Nxv = Vv[0].get_V()[0].size();
@@ -93,14 +97,14 @@ void Velocity::set_Vpc(positions& mesh, std::vector<Velocity>& Vv)
         {
             for (i = 0; i < Ny - 1; i++)
             {
-                ve = (V[1].get_V()[i + 1][j] + V[1].get_V()[i + 1][j + 1]);
+                ve = (Vv[1].get_V(i + 1,j) + Vv[1].get_V(i + 1, j + 1));
                 if (ve >= 0)
                 {
-                    Vpc[i][j] = V[0].get_V()[i][j + 1];
+                    Vpc[i][j] = Vv[0].get_V(i, j + 1);
                 }
                 else
                 {
-                    Vpc[i][j] = V[0].get_V()[i + 1][j + 1];
+                    Vpc[i][j] = Vv[0].get_V(i + 1, j + 1);
                 }
             }
         }
@@ -111,14 +115,14 @@ void Velocity::set_Vpc(positions& mesh, std::vector<Velocity>& Vv)
         {
             for (i = 0; i < Ny - 1; i++)
             {
-                ve = (V[0].get_V()[i][j + 1] + V[0].get_V()[i + 1][j + 1]);
+                ve = (Vv[0].get_V(i, j + 1) + Vv[0].get_V(i + 1, j + 1));
                 if ( ve >= 0)
                 {
-                    Vpc[i][j] = V[1].get_V()[i + 1][j];
+                    Vpc[i][j] = Vv[1].get_V(i + 1, j);
                 }
                 else
                 {
-                    Vpc[i][j] = V[1].get_V()[i + 1][j + 1];
+                    Vpc[i][j] = Vv[1].get_V(i + 1, j + 1);
                 }
             }
         }
@@ -128,6 +132,21 @@ void Velocity::set_Vpc(positions& mesh, std::vector<Velocity>& Vv)
 std::vector<std::vector<double>> Velocity::get_Vp()
 {
     return Vp;
+}
+
+double Velocity::get_Vp(const int& i, const int& j)
+{
+    return Vp[i][j];
+}
+
+std::vector<std::vector<double>> Velocity::get_Vpc()
+{
+    return Vpc;
+}
+
+double Velocity::get_Vpc(const int& i, const int& j)
+{
+    return Vpc[i][j];
 }
 
 std::vector<std::vector<double>> vel_module(std::vector<Velocity>& Vv)

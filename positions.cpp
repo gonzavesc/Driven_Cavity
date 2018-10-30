@@ -98,6 +98,12 @@ std::vector <double> positions::get_Xp()
 {
     return Xp;
 }
+
+std::vector <double> positions::get_Dxpr()
+{
+    return Dxpr;
+}
+
 int positions::get_m()
 {
     return m;

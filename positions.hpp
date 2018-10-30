@@ -17,6 +17,7 @@ class positions{
         std::vector<double> get_Yp();
         std::vector<double> get_Yv();
         std::vector<double> get_Xu();
+        std::vector<double> get_Dxpr();
         int get_m();
         int get_n();
 

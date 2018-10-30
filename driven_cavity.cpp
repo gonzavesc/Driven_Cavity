@@ -11,6 +11,7 @@ int main()
 {
     std::vector<double> v;    
     std::vector <std::vector<double>> Vm;
+    double M;
     v = readfiledat();
     positions mesh(v[0], v[1]);
     Velocity Xvel(mesh.get_m() + 1, mesh.get_n() + 2);
@@ -23,7 +24,12 @@ int main()
     V[0].set_V(2,2,3); V[1].set_V(2,2,5);
     set_boundary(V, P);
     V[0].set_Vp(mesh, V[0]); V[1].set_Vp(mesh, V[1]);
+    V[0].set_Vpc(mesh, V); V[1].set_Vpc(mesh, V);
     Vm = vel_module(V);
+    M = get_max(Vm);
+    std::cout << M << std::endl;
+    M = get_min(mesh.get_Dxpr());
+    std::cout << M << std::endl;
    return 0;
 
 }
