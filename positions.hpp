@@ -22,5 +22,5 @@ class positions{
         int get_n();
 
 };
-
+void copy_matrix(std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& B);
 #endif

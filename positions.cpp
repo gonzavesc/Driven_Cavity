@@ -112,3 +112,17 @@ int positions::get_n()
 {
     return n;
 }
+
+void copy_matrix(std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& B)
+{
+    int Nx, Ny;
+    Nx = B[0].size(); Ny = B.size();
+    A.resize(Ny, std::vector<double>(Nx));
+    for (int i = 0; i < Ny; i++)
+    {
+        for(int j = 0; j < Nx; j++)
+        {
+            A[i][j] = B[i][j];
+        }
+    }
+}

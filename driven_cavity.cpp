@@ -10,7 +10,7 @@
 int main()
 {
     std::vector<double> v;    
-    std::vector <std::vector<double>> Vm;
+    std::vector <std::vector<double>> Vm, Rp, Rn;
     double M;
     v = readfiledat();
     positions mesh(v[0], v[1]);
@@ -30,6 +30,8 @@ int main()
     std::cout << M << std::endl;
     M = get_min(mesh.get_Dxpr());
     std::cout << M << std::endl;
+    copy_matrix(Rp, Vm);
+    
    return 0;
 
 }

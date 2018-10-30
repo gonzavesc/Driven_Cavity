@@ -11,7 +11,6 @@ void exportarMatriu(const std::vector<std::vector<double>>& phi, const char* nam
 {
     int i, jj, Nx, Ny;
     std::ofstream output;
-    //char name[] = "Mheyhey.dat";
     output.precision(17);
     output.open(name, std::ios::out);
     Ny = phi.size() - 1;
