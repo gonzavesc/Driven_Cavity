@@ -1,7 +1,7 @@
 CC = g++
 FLAG = -std=c++11 -c -Wall -O3
 
-all: read pos vel bnd exp uti fin
+all: read pos vel bnd exp uti poss fin
 	$(CC) *.o -o _driven
 read:
 	$(CC) $(FLAG) import.cpp
@@ -17,6 +17,8 @@ exp:
 	$(CC) $(FLAG) export.cpp
 uti:
 	$(CC) $(FLAG) util.cpp
+poss:
+	$(CC) $(FLAG) poiss.cpp
 fin:
 	$(CC) $(FLAG) driven_cavity.cpp
 clean:
