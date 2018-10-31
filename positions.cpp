@@ -103,6 +103,34 @@ std::vector <double> positions::get_Dxpr()
 {
     return Dxpr;
 }
+std::vector <double> positions::get_Dxpl()
+{
+    return Dxpl;
+}
+std::vector <double> positions::get_Dypu()
+{
+    return Dypu;
+}
+std::vector <double> positions::get_Dypd()
+{
+    return Dypd;
+}
+std::vector <double> positions::get_Dxur()
+{
+    return Dxur;
+}
+std::vector <double> positions::get_Dxul()
+{
+    return Dxul;
+}
+std::vector <double> positions::get_Dyvu()
+{
+    return Dyvu;
+}
+std::vector <double> positions::get_Dyvd()
+{
+    return Dyvd;
+}
 
 int positions::get_m()
 {
@@ -111,18 +139,4 @@ int positions::get_m()
 int positions::get_n()
 {
     return n;
-}
-
-void copy_matrix(std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& B)
-{
-    int Nx, Ny;
-    Nx = B[0].size(); Ny = B.size();
-    A.resize(Ny, std::vector<double>(Nx));
-    for (int i = 0; i < Ny; i++)
-    {
-        for(int j = 0; j < Nx; j++)
-        {
-            A[i][j] = B[i][j];
-        }
-    }
 }

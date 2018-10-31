@@ -18,9 +18,15 @@ class positions{
         std::vector<double> get_Yv();
         std::vector<double> get_Xu();
         std::vector<double> get_Dxpr();
+        std::vector<double> get_Dxpl();
+        std::vector<double> get_Dypu();
+        std::vector<double> get_Dypd();
+        std::vector<double> get_Dxur();
+        std::vector<double> get_Dxul();
+        std::vector<double> get_Dyvu();
+        std::vector<double> get_Dyvd();
         int get_m();
         int get_n();
 
 };
-void copy_matrix(std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& B);
 #endif
