@@ -114,8 +114,16 @@ std::vector<std::vector<double>> get_Ru(std::vector<Velocity>& V, positions& mes
             Aw = Ae;
             An = mesh.get_Dxur()[j + 1] + mesh.get_Dxul()[j + 1];
             As = An;
-            Ue = (V[0].get_V(i + 1, j + 2) + V[0].get_V(i + 1, j + 1)) / 2;
-            Uw = (V[0].get_V(i + 1, j + 1) + V[0].get_V(i + 1, j)) / 2;
+            Ue = (V[0].get_V(i + 1, j + 2) + V[0].get_V(i + 1, j + 1)) / 2.0;
+            if (j == Nx - 3)
+            {
+                Ue = 0;
+            }
+            Uw = (V[0].get_V(i + 1, j + 1) + V[0].get_V(i + 1, j)) / 2.0;
+            if (j ==0)
+            {
+                Uw = 0;
+            }
             Vn = (V[1].get_V(i + 2, j) * mesh.get_Dxul()[j + 1] + V[1].get_V(i + 2, j + 1) * mesh.get_Dxur()[j + 1]) / (mesh.get_Dxur()[j + 1] + mesh.get_Dxul()[j + 1]);
             Vs = (V[1].get_V(i + 1, j) * mesh.get_Dxul()[j + 1] + V[1].get_V(i + 1, j + 1) * mesh.get_Dxur()[j + 1]) / (mesh.get_Dxur()[j + 1] + mesh.get_Dxul()[j + 1]);
             aux1 = Ue * V[0].get_Vp(i + 1, j + 1) * Ae - Uw * V[0].get_Vp(i + 1, j) * Aw + Vn * V[0].get_Vpc(i + 1, j) * An - Vs * V[0].get_Vpc(i, j) * As;
@@ -124,7 +132,6 @@ std::vector<std::vector<double>> get_Ru(std::vector<Velocity>& V, positions& mes
                     + (V[0].get_V(i + 2,j + 1) - V[0].get_V(i + 1, j + 1)) / (mesh.get_Dypu()[i + 1] + mesh.get_Dypd()[i + 2]) * An
                     - (V[0].get_V(i + 1, j + 1) - V[0].get_V(i, j + 1)) / (mesh.get_Dypu()[i] + mesh.get_Dypd()[i + 1]) * As;
             R[i][j] = (-aux1 + aux2 / Re) / Vol;
-
         }
     }
     return R;   
@@ -150,14 +157,23 @@ std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mes
             As = An;
             Ue = (V[0].get_V(i + 1, j + 2) * mesh.get_Dyvu()[i + 1] + V[0].get_V(i, j + 2) * mesh.get_Dyvd()[i + 1]) / (mesh.get_Dyvu()[i + 1] + mesh.get_Dyvd()[i + 1]);
             Uw = (V[0].get_V(i + 1, j + 1) * mesh.get_Dyvu()[i + 1] + V[0].get_V(i, j + 1) * mesh.get_Dyvd()[i + 1]) / (mesh.get_Dyvu()[i + 1] + mesh.get_Dyvd()[i + 1]);
-            Vn = (V[1].get_V(i + 1, j + 1) + V[1].get_V(i + 2, j + 1)) / (2);
-            Vs = (V[1].get_V(i + 1, j + 1) + V[1].get_V(i, j + 1)) / (2);
+            Vn = (V[1].get_V(i + 1, j + 1) + V[1].get_V(i + 2, j + 1)) / (2.0);
+            Vs = (V[1].get_V(i + 1, j + 1) + V[1].get_V(i, j + 1)) / (2.0);
+            if (i == 0)
+            {
+                Vs = 0;
+            }
+            if (i == Ny -3)
+            {
+                Vn = 0;
+            }
             aux1 = Ue * V[1].get_Vpc(i, j + 1) * Ae - Uw * V[1].get_Vpc(i, j) * Aw + Vn * V[1].get_Vp(i + 1, j + 1) * An - Vs * V[1].get_Vp(i, j + 1) * As;
             aux2 = (V[1].get_V(i + 1, j + 2) - V[1].get_V(i + 1, j + 1)) / (mesh.get_Dxpr()[j + 1] + mesh.get_Dxpl()[j + 2]) * Ae 
                     - (V[1].get_V(i + 1, j + 1) - V[1].get_V(i + 1, j)) / (mesh.get_Dxpr()[j] + mesh.get_Dxpl()[j + 1]) * Aw
                     + (V[1].get_V(i + 2,j + 1) - V[1].get_V(i + 1, j + 1)) / (mesh.get_Dyvu()[i + 1] + mesh.get_Dyvd()[i + 2]) * An
                     - (V[1].get_V(i + 1, j + 1) - V[1].get_V(i, j + 1)) / (mesh.get_Dyvu()[i] + mesh.get_Dyvd()[i + 1]) * As;
             R[i][j] = (-aux1 + aux2 / Re) / Vol;
+
 
         }
     }
@@ -174,7 +190,7 @@ std::vector<std::vector<double>> get_up(std::vector<Velocity>& V, std::vector<st
     {
         for (int j = 0; j < Nx -2; j++)
         {
-            up[i][j] = V[0].get_V(i + 1, j + 1) + deltat * ( 3 / 2 * Rnu[i][j] - 1 / 2 * Rpu[i][j]);
+            up[i][j] = V[0].get_V(i + 1, j + 1) + deltat * ( 3.0 / 2.0 * Rnu[i][j] - 1.0 / 2.0 * Rpu[i][j]);
         }
     }
     return up;
@@ -190,7 +206,7 @@ std::vector<std::vector<double>> get_vp(std::vector<Velocity>& V, std::vector<st
     {
         for (int j = 0; j < Nx -2; j++)
         {
-            vp[i][j] = V[1].get_V(i + 1, j + 1) + deltat * ( 3 / 2 * Rnv[i][j] - 1 / 2 * Rpv[i][j]);
+            vp[i][j] = V[1].get_V(i + 1, j + 1) + deltat * ( 3.0 / 2.0 * Rnv[i][j] - 1.0 / 2.0 * Rpv[i][j]);
         }
     }
     return vp;

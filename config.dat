@@ -1,4 +1,5 @@
-Dx 0.25
-Dy 0.25
-Re 1000
+Dx 0.05
+Dy 0.05
+Re 1
 err 1e-8
+runtime 100

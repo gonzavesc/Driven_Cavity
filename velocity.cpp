@@ -55,9 +55,8 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
                 }
             }
             j = 0; Vp[i][j] = Vv.get_V(i,j);
-            j = Nx -1; Vp[i][j] = Vv.get_V(i,j);
-        }   
-
+            j = Nx - 1; Vp[i][j] = Vv.get_V(i,j + 1);
+        }
     }
     else
     {
@@ -77,8 +76,9 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
                 }
             }
             i = 0; Vp[i][j] = Vv.get_V(i,j);
-            i = Ny - 1; Vp[i][j] = Vv.get_V(i,j); 
+            i = Ny - 1; Vp[i][j] = Vv.get_V(i+1,j); 
         }   
+        
     }
 }
 
