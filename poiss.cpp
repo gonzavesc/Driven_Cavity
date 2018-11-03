@@ -25,10 +25,11 @@ void Poisson::set_P(Pressure& P, std::vector<std::vector<double>>& up, std::vect
     As = An;
     ae = Ae / (mesh.get_Dxpr()[0] + mesh.get_Dxpl()[1]); aw = ae;
     an = An / (mesh.get_Dypu()[0] + mesh.get_Dypd()[1]); as = an;
-    std::cout << Ae << " " << mesh.get_Dxpr()[0] + mesh.get_Dxpl()[1] << " " << Ae/deltat << std::endl;
     while (rms > err)
     {
         rms = 0;
+        int i, j;
+        
         for (int i = 1; i < Ny - 1; i++)
         {
             for (int j = 1; j < Nx - 1; j++)
@@ -38,10 +39,39 @@ void Poisson::set_P(Pressure& P, std::vector<std::vector<double>>& up, std::vect
                 bp = 1.0 / deltat * (up[i - 1][j] * Ae - up[i - 1][j - 1] * Aw + vp[i][j - 1] * An - vp[i - 1][j - 1] * As);
                 P.set_P(i,j, (p - bp) / (ae+aw+as+an)); 
                 rms = std::max(rms, std::abs(prev - P.get_P(i,j)));
-                std::cout << bp << std::endl;
             }
         }
-        //std::cout << rms << std::endl;
+        
+        i = 0;
+        for (int j = 1; j < Nx - 1; j++)
+        {
+            prev = P.get_P(i,j);
+            P.set_P(i,j, P.get_P(i + 1, j)); 
+            rms = std::max(rms, std::abs(prev - P.get_P(i,j)));
+        }
+
+        i = Ny - 1;
+        for (int j = 1; j < Nx - 1; j++)
+        {
+            prev = P.get_P(i,j);
+            P.set_P(i,j, P.get_P(i - 1, j)); 
+            rms = std::max(rms, std::abs(prev - P.get_P(i,j)));
+        }
+        j = 0;
+        
+        for (int i = 1; i < Ny - 1; i++)
+        {
+            prev = P.get_P(i,j);
+            P.set_P(i,j, P.get_P(i, j + 1)); 
+            rms = std::max(rms, std::abs(prev - P.get_P(i,j)));
+        }
+        j = Nx - 1; 
+        for (int i = 1; i < Ny - 1; i++)
+        {
+            prev = P.get_P(i,j);
+            P.set_P(i,j, P.get_P(i, j - 1)); 
+            rms = std::max(rms, std::abs(prev - P.get_P(i,j)));
+        }
     }
 }
 
@@ -52,18 +82,18 @@ void Poisson::set_V(Pressure& P, positions& mesh, std::vector<Velocity>& V, std:
     Nx = V[0].get_V()[0].size(); Ny = V[0].get_V().size();
     for (i = 1; i < Ny - 1; i++)
     {
-        for (j = 1; j < Nx - 1; j++)
+        for (j = 0; j < Nx; j++)
         {
-            a = up[i - 1][j - 1] - deltat * (P.get_P(i, j)-P.get_P(i, j - 1)) / (mesh.get_Dxpl()[j] + mesh.get_Dxpr()[j - 1]);
+            a = up[i - 1][j] - deltat * (P.get_P(i, j + 1) - P.get_P(i, j)) / (mesh.get_Dxpl()[j + 1] + mesh.get_Dxpr()[j]);
             V[0].set_V(i,j,a);
         }
     }
     Nx = V[1].get_V()[0].size(); Ny = V[1].get_V().size();
-    for (i = 1; i < Ny - 1; i++)
+    for (i = 0; i < Ny; i++)
     {
         for (j = 1; j < Nx - 1; j++)
         {
-            a = vp[i - 1][j - 1] - deltat * (P.get_P(i, j)-P.get_P(i - 1, j)) / (mesh.get_Dypd()[i] + mesh.get_Dypu()[i - 1]);
+            a = vp[i][j - 1] - deltat * (P.get_P(i + 1, j)-P.get_P(i, j)) / (mesh.get_Dypd()[i + 1] + mesh.get_Dypu()[i]);
             V[1].set_V(i,j,a);
         }
     }

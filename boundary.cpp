@@ -50,3 +50,19 @@ void set_boundary(std::vector<Velocity>& V, Pressure& P)
     }
 }
 
+void set_boundary(std::vector<std::vector<double>>& up, std::vector<std::vector<double>>& vp)
+{
+    int Nx, Ny, i, j;
+    Nx = up[0].size(); Ny = up.size();
+    for (i = 0; i < Ny; i++)
+    {
+        up[i][0] = 0;
+        up[i][Nx - 1] = 0;
+    }
+    Nx = vp[0].size(); Ny = vp.size();
+    for (j = 0; j < Nx; j++)
+    {
+        vp[0][j] = 0;
+        vp[Ny - 1][j] = 0;
+    }
+}
