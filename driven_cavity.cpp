@@ -51,8 +51,10 @@ int main()
     set_boundary(up, vp);
     poiss.set_P(P, up, vp, mesh,  deltat);    
     poiss.set_V(P, mesh, V, up, vp, deltat);
-    std::string save = "";
+    
     total_time += deltat;
+
+    std::string save = "";
     while(total_time < runtime)
     {
         n+=1;
@@ -76,27 +78,29 @@ int main()
             k+= 0.01;
             std::ostringstream strs;
             strs << total_time;
-            save ="vel_x" + strs.str() + ".out";
+            save = "Results/vel_x" + strs.str() + ".out";
             exportarMatriu(V[0].get_V(),save.c_str());
+            save = "Results/vel_y" + strs.str() + ".out";
+            exportarMatriu(V[1].get_V(),save.c_str());
+            save = "Results/Pressure" + strs.str() + ".out";
+            exportarMatriu(P.get_P(), save.c_str());
         }
     }
 
 
 
 
-    char name0[] = "vel_x.out";
-    char name2[] = "vel_y.out";
+
     char name3[] = "vel_xp.out";
     char name4[] = "vel_yp.out";
-    char name5[] = "Pressure.out";
+
     char name6[] = "up.out";
     char name7[] = "vp.out";
     char name8[] = "Rnu.out";
-    exportarMatriu(V[0].get_V(),name0);
-    exportarMatriu(V[1].get_V(),name2);
+
     exportarMatriu(V[0].get_Vp(),name3);
     exportarMatriu(V[1].get_Vp(),name4);
-    exportarMatriu(P.get_P(), name5);
+
     exportarMatriu(up, name6);
     exportarMatriu(vp, name7);
     exportarMatriu(Rnu, name8);

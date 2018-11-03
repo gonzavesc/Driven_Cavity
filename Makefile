@@ -22,4 +22,4 @@ poss:
 fin:
 	$(CC) $(FLAG) driven_cavity.cpp
 clean:
-	rm *.o _* *.out
+	rm *.o _* *.out Results/*.out
