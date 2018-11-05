@@ -19,7 +19,7 @@ void exportarMatriu(const std::vector<std::vector<double>>& phi, const char* nam
     {
         for (jj = 0; jj <= Nx - 1; jj++)
         {
-             output << phi[i][jj] << ", " ;
+             output << std::scientific << phi[i][jj] << ", " ;
         }
         output << std::scientific << phi[i][Nx] << std::endl;
     }

@@ -2,7 +2,7 @@ CC = g++
 FLAG = -std=c++11 -c -Wall -O3
 
 all: read pos vel bnd exp uti poss fin
-	$(CC) *.o -o _driven
+	$(CC) -O3 *.o -o _driven
 read:
 	$(CC) $(FLAG) import.cpp
 ini:

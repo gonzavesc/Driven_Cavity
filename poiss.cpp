@@ -19,12 +19,12 @@ void Poisson::set_P(Pressure& P, std::vector<std::vector<double>>& up, std::vect
     rms = err * 10;
     int Nx, Ny;
     Nx = P.get_P()[0].size(); Ny = P.get_P().size(); 
-    Ae = mesh.get_Dypu()[0] + mesh.get_Dypd()[1];
+    Ae = mesh.get_Dypu()[1] + mesh.get_Dypd()[2];
     Aw = Ae;
-    An = mesh.get_Dxpr()[0] + mesh.get_Dxpl()[1];
+    An = mesh.get_Dxpr()[1] + mesh.get_Dxpl()[2];
     As = An;
-    ae = Ae / (mesh.get_Dxpr()[0] + mesh.get_Dxpl()[1]); aw = ae;
-    an = An / (mesh.get_Dypu()[0] + mesh.get_Dypd()[1]); as = an;
+    ae = Ae / (mesh.get_Dxpr()[1] + mesh.get_Dxpl()[2]); aw = ae;
+    an = An / (mesh.get_Dypu()[1] + mesh.get_Dypd()[2]); as = an;
     while (rms > err)
     {
         rms = 0;
@@ -38,6 +38,7 @@ void Poisson::set_P(Pressure& P, std::vector<std::vector<double>>& up, std::vect
                 p = P.get_P(i,j + 1) * ae + P.get_P(i, j - 1) * aw + P.get_P(i + 1, j) * an + P.get_P(i - 1, j) * as;
                 bp = 1.0 / deltat * (up[i - 1][j] * Ae - up[i - 1][j - 1] * Aw + vp[i][j - 1] * An - vp[i - 1][j - 1] * As);
                 P.set_P(i,j, (p - bp) / (ae+aw+as+an)); 
+                //std::cout << i << " " << j << " " << deltat << " " << up[i - 1][j] << " " << up[i - 1][j - 1] << " " << P.get_P(i,j - 1) << " " << P.get_P(i,j) << std::endl;
                 rms = std::max(rms, std::abs(prev - P.get_P(i,j)));
             }
         }
@@ -72,6 +73,7 @@ void Poisson::set_P(Pressure& P, std::vector<std::vector<double>>& up, std::vect
             P.set_P(i,j, P.get_P(i, j - 1)); 
             rms = std::max(rms, std::abs(prev - P.get_P(i,j)));
         }
+        
     }
 }
 

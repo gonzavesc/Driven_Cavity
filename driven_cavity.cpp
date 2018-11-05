@@ -14,7 +14,7 @@ int main()
 {
     std::vector<double> v;    
     std::vector <std::vector<double>> Rpu, Rnu, Rpv, Rnv, up, vp, Vm;
-    double Re,deltatc, deltatd, deltat, runtime, total_time(0),M(0);
+    double Re,deltatc, deltatd, deltat, runtime, total_time(0),M(0), MM(0);
     int n(0);
     double k(0.01);
     v = readfiledat();
@@ -43,7 +43,6 @@ int main()
     deltatd = get_deltatd(Re, mesh);
     std::cout << "deltatd= " << deltatd << " deltatc= " << deltatc << std::endl;
     deltat = std::min(deltatd,deltatc);
-    deltat = deltat;    
     Rnu = get_Ru(V, mesh, Re);
     Rnv = get_Rv(V, mesh, Re);
     up = get_up(V, Rnu, Rpu, deltat);
@@ -72,10 +71,11 @@ int main()
         poiss.set_P(P, up, vp, mesh,  deltat);    
         poiss.set_V(P, mesh, V, up, vp, deltat);
         total_time += deltat;
-        std::cout << total_time << " " << deltat << std::endl;
         if (total_time > k * runtime)
         {
             k+= 0.01;
+            V[0].set_Vp(mesh, V[0]); V[1].set_Vp(mesh, V[1]);
+            V[0].set_Vpc(mesh, V); V[1].set_Vpc(mesh, V);
             std::ostringstream strs;
             strs << total_time;
             save = "Results/vel_x" + strs.str() + ".out";
@@ -84,7 +84,23 @@ int main()
             exportarMatriu(V[1].get_V(),save.c_str());
             save = "Results/Pressure" + strs.str() + ".out";
             exportarMatriu(P.get_P(), save.c_str());
+            std::cout << total_time << std::endl;
+            save = "Results/vel_Xp" + strs.str() + ".out";
+            exportarMatriu(V[0].get_Vp(), save.c_str());
+            save = "Results/vel_Yp" + strs.str() + ".out";
+            exportarMatriu(V[1].get_Vp(), save.c_str());
+
         }
+        M = 0;
+        for (int i = 1; i <= mesh.get_m(); i++)
+        {
+            for (int j = 1; j <= mesh.get_n(); j++)
+            {
+                MM = V[1].get_V(i, j) - V[1].get_V(i - 1, j) + V[0].get_V(i, j) - V[0].get_V(i, j - 1);
+                M = std::max(M,MM);
+            }
+        }
+        std::cout << M << std::endl;
     }
 
 

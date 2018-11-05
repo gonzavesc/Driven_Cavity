@@ -80,7 +80,7 @@ double get_deltatd(const double& Re, positions& mesh)
 {
     double Dtd, N;
     N = get_min(mesh.get_Dxpr());
-    Dtd = 0.2 * Re * N;
+    Dtd = 0.2 * Re * N * N;
     return Dtd;
 }
 void copy_matrix(std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& B)
