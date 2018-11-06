@@ -7,8 +7,7 @@
 #define INCLUDE_POS
 class positions{
     private:
-        double dx,dy;
-        int n,m;
+        double dx,dy, n, m;
         std::vector<double> Xp, Yp, Xu, Yv, Dxpr, Dxpl, Dypu, Dypd, Dxur, Dxul, Dyvu, Dyvd;
 
     public:

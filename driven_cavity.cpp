@@ -104,7 +104,7 @@ int main()
                 M = std::max(M,MM);
             }
         }
-        std::cout << M << std::endl;
+        //std::cout << M << std::endl;
     }
 
 

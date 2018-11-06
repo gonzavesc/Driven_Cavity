@@ -7,11 +7,14 @@
 positions::positions(const double& a, const double& b)
 {   
     double j;
-    dx = a;
-    dy = b;
 
-    n = 1 / dx;
-    m = 1/ dy;
+
+    n = a;
+    m = b;
+
+    dx = 1 / n;
+    dy = 1 / m;
+
 
     
     Xp.push_back(0);
