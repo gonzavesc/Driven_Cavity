@@ -1,5 +1,5 @@
-Dx 0.05
-Dy 0.05
+Dx 0.1
+Dy 0.1
 Re 100
-err 1e-8
+err 1e-9
 runtime 1000

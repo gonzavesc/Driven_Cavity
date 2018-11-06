@@ -89,6 +89,10 @@ int main()
             exportarMatriu(V[0].get_Vp(), save.c_str());
             save = "Results/vel_Yp" + strs.str() + ".out";
             exportarMatriu(V[1].get_Vp(), save.c_str());
+            save = "Results/vel_up" + strs.str() + ".out";
+            exportarMatriu(up, save.c_str());
+            save = "Results/vel_vp" + strs.str() + ".out";
+            exportarMatriu(vp, save.c_str());
 
         }
         M = 0;
