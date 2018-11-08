@@ -1,5 +1,5 @@
 Nx 10
 Ny 10
 Re 100
-err 1e-9
-runtime 1000
+err 1e-12
+runtime 50

@@ -16,7 +16,7 @@ positions::positions(const double& a, const double& b)
     dy = 1 / m;
 
 
-    
+
     Xp.push_back(0);
     for (j = 0; j < n; j++)
     {
@@ -25,6 +25,7 @@ positions::positions(const double& a, const double& b)
         
     }
     Xp.push_back(n * dx); Xu.push_back(n * dx);
+
 
     Yp.push_back(0);
     for (j = 0; j < m; j++)
@@ -40,13 +41,13 @@ positions::positions(const double& a, const double& b)
         Dxur.push_back((Xu[j+1] - Xu[j])/2);
     }
     Dxur.push_back(0);
-    
     Dxul.push_back(0);
     for (j = 1; j <= n; j++)
     {
         Dxul.push_back((Xu[j] - Xu[j-1]) / 2);
     }
-    
+
+
     for (j = 0; j < m; j++)
     {
         Dyvu.push_back((Yv[j+1] - Yv[j])/2);
@@ -65,14 +66,14 @@ positions::positions(const double& a, const double& b)
         Dxpr.push_back((Xp[j+1] - Xp[j]) / 2);
     }
     Dxpr.push_back(Xp[n+1] - Xp[n]); Dxpr.push_back(0);
-    
+
     Dxpl.push_back(0); Dxpl.push_back(Xp[1]);
     for (j = 2; j <= n; j++)
     {
         Dxpl.push_back((Xp[j] - Xp[j - 1]) / 2);
     }
     Dxpl.push_back(0);
-    
+
     Dypu.push_back(0);
     for (j = 1; j < m; j++)
     {
