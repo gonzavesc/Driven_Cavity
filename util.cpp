@@ -38,6 +38,28 @@ double get_max(const std::vector<double>& M)
     return m;   
 }
 
+std::vector<int> get_maxpos(const std::vector<std::vector<double>>& M)
+{
+    int Nx, Ny;
+    double Val(0);
+    std::vector<int> pos;
+    pos.resize(2,0);
+    Ny = M.size(); Nx = M[0].size();
+    for (int i = 0; i < Ny; i++)
+    {
+        for (int j = 0; j < Nx; j++)
+        {
+            if (M[i][j] > Val)
+            {
+                pos[0] = i;
+                pos[1] = j;
+                Val = M[i][j];
+            }
+        }
+    }
+    return pos;
+}
+
 double get_min(const std::vector<std::vector<double>>& M)
 {
     double m;
@@ -65,6 +87,22 @@ double get_min(const std::vector<double>& M)
         m = std::min(M[i], m);
     }
     return m;   
+}
+
+std::vector<std::vector<double>> substract(std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& B)
+{
+    std::vector<std::vector<double>> C;
+    int Nx, Ny;
+    Nx = A[0].size(); Ny = A.size();
+    C.resize(Ny, std::vector<double>(Nx));
+    for (int i = 0; i < Ny; i++)
+    {
+        for (int j = 0; j < Nx; j++)
+        {
+            C[i][j] = std::abs(A[i][j] - B[i][j]);
+        }
+    }
+    return C;
 }
 
 double get_deltatc(std::vector<Velocity>& Vv, positions& mesh)
@@ -127,8 +165,8 @@ std::vector<std::vector<double>> get_Ru(std::vector<Velocity>& V, positions& mes
                     - (V[0].get_V(i + 1, j) - V[0].get_V(i + 1, j - 1)) / (mesh.get_Dxur()[j - 1] + mesh.get_Dxul()[j]) * Aw
                     + (V[0].get_V(i + 2, j) - V[0].get_V(i + 1, j)) / (mesh.get_Dypu()[i + 1] + mesh.get_Dypd()[i + 2]) * An
                     - (V[0].get_V(i + 1, j) - V[0].get_V(i, j)) / (mesh.get_Dypu()[i] + mesh.get_Dypd()[i + 1]) * As;
-            R[i][j] = (-aux1 + aux2 / Re ) / Vol;
             
+            R[i][j] = (-aux1 + aux2 / Re ) / Vol;
         }
     }
     return R;   
@@ -164,7 +202,8 @@ std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mes
                     - (V[1].get_V(i, j + 1) - V[1].get_V(i, j)) / (mesh.get_Dxpr()[j] + mesh.get_Dxpl()[j + 1]) * Aw
                     + (V[1].get_V(i + 1, j + 1) - V[1].get_V(i, j + 1)) / (mesh.get_Dyvu()[i] + mesh.get_Dyvd()[i + 1]) * An
                     - (V[1].get_V(i, j + 1) - V[1].get_V(i - 1, j + 1)) / (mesh.get_Dyvu()[i - 1] + mesh.get_Dyvd()[i]) * As;
-            R[i][j] = (-aux1 + aux2 / Re ) / Vol;;
+            R[i][j] = (-aux1 + aux2 / Re ) / Vol;
+            
         }
     }
     return R;   
@@ -181,6 +220,7 @@ std::vector<std::vector<double>> get_up(std::vector<Velocity>& V, std::vector<st
         for (int j = 1; j < Nx - 1; j++)
         {
             up[i][j] = V[0].get_V(i + 1, j) + deltat * ( 3.0 / 2.0 * Rnu[i][j] - 1.0 / 2.0 * Rpu[i][j]);
+
         }
     }
     return up;
@@ -197,6 +237,8 @@ std::vector<std::vector<double>> get_vp(std::vector<Velocity>& V, std::vector<st
         for (int j = 0; j < Nx - 2; j++)
         {
             vp[i][j] = V[1].get_V(i, j + 1) + deltat * ( 3.0 / 2.0 * Rnv[i][j] - 1.0 / 2.0 * Rpv[i][j]);
+
+            
         }
     }
     return vp;

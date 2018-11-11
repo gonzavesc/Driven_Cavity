@@ -17,7 +17,7 @@ void Poisson::set_P(Pressure& P, std::vector<std::vector<double>>& up, std::vect
 {
     double rms,p,prev, bp, Ae, Aw, An, As,ae,aw,an,as;
     rms = err * 10;
-    int Nx, Ny,k(0);
+    int Nx, Ny;
     Nx = P.get_P()[0].size(); Ny = P.get_P().size(); 
     Ae = mesh.get_Dypu()[1] + mesh.get_Dypd()[2];
     Aw = Ae;
@@ -74,11 +74,6 @@ void Poisson::set_P(Pressure& P, std::vector<std::vector<double>>& up, std::vect
             prev = P.get_P(i,j);
             P.set_P(i,j, P.get_P(i, j - 1)); 
             rms = std::max(rms, std::abs(prev - P.get_P(i,j)));
-        }
-        if (k==0)
-        {
-            std::cout << rms;
-            k+=1;
         }
 
     }

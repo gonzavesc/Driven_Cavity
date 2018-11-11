@@ -23,17 +23,7 @@ std::vector<std::vector<double>> Velocity::get_V()
 }
 double Velocity::get_V(const int& i, const int& j)
 {
-    int Nx, Ny;
-    Nx = V[0].size();
-    Ny = V.size();
-    if (i >= Ny || i < 0 || j < 0 || j >= Nx)
-    {
-        return 0.0;
-    }
-    else
-    {
-        return V[i][j];
-    }
+    return V[i][j];
     
 }
 void Velocity::set_V(const int& i, const int& j, const double& u)
@@ -95,13 +85,13 @@ void Velocity::set_Vp(positions& mesh, Velocity& Vv)
     }
 }
 
-void Velocity::set_Vpc(positions& mesh, std::vector<Velocity>& Vv)
+void Velocity::set_Vpc(positions& mesh, Velocity& V ,std::vector<Velocity>& Vv)
 {
     int Nx, Ny, Nxv, i, j;
     double ve;
     Nx = mesh.get_Xp().size();
     Ny = mesh.get_Yp().size();
-    Nxv = Vv[0].get_V()[0].size();
+    Nxv = V.get_V()[0].size();
     Vpc.resize(Ny - 1, std::vector<double>(Nx - 1));
     if (Nxv < Nx)
     {

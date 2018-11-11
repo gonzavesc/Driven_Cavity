@@ -14,7 +14,7 @@ class Velocity{
     public:
         Velocity(const int& row, const int& col);        
         void set_Vp(positions& mesh, Velocity& Vv);
-        void set_Vpc(positions& mesh, std::vector<Velocity>& Vv);
+        void set_Vpc(positions& mesh, Velocity& V ,std::vector<Velocity>& Vv);
         void set_V(const int& i, const int& j, const double& u);
         std::vector<std::vector<double>> get_Vp();
         double get_Vp(const int& i, const int& j);
