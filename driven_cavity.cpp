@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <algorithm>
+#include <omp.h>
 #include "positions.hpp"
 #include "import.hpp"
 #include "velocity.hpp"
@@ -46,6 +47,10 @@ int main()
     deltat = std::min(deltatd,deltatc);
     Rnu = get_Ru(V, mesh, Re);
     Rnv = get_Rv(V, mesh, Re);
+    C = substract(Rnu, Rpu);
+    diff = get_max(C);
+    pos = get_maxpos(C);
+    std::cout << diff << ", " << pos[0] << ", " << pos[1] << ", " << total_time << ", ";
     up = get_up(V, Rnu, Rpu, deltat);
     vp = get_vp(V, Rnv, Rpv, deltat);
     set_boundary(up, vp);
@@ -80,7 +85,7 @@ int main()
         C = substract(Rnu, Rpu);
         diff = get_max(C);
         pos = get_maxpos(C);
-        std::cout << diff << ", " << pos[0] << ", " << pos[1] << ", " << total_time << std::endl;
+        std::cout << diff << ", " << pos[0] << ", " << pos[1] << ", " << total_time << ", ";
         up = get_up(V, Rnu, Rpu, deltat);
         vp = get_vp(V, Rnv, Rpv, deltat);
         set_boundary(up, vp);
