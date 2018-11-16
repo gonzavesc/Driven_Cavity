@@ -106,7 +106,11 @@ int main()
             exportarMatriu(V[1].get_V(),save.c_str());
             save = "Results/Pressure" + strs.str() + ".out";
             exportarMatriu(P.get_P(), save.c_str());
-            //std::cout << total_time << std::endl;
+            save = "Results/vel_Xp" + strs.str() + ".out";
+            exportarMatriu(V[0].get_Vp(), save.c_str());
+            save = "Results/vel_Yp" + strs.str() + ".out";
+            exportarMatriu(V[1].get_Vp(), save.c_str());
+
         }
         M = 0;
         for (int i = 1; i <= mesh.get_m(); i++)
